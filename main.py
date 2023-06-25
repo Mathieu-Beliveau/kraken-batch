@@ -46,7 +46,6 @@ def get_folders_to_process(corpus_path: Path) -> list[Path]:
 
 if __name__ == '__main__':
     argparse = ArgumentParser()
-    argparse.add_argument("-s", "--search")
     argparse.add_argument("-c", "--corpus", default='/home/strav/Dev/shared-corpus/')
     args = argparse.parse_args()
     base_path = Path(CORPUS_LOCATION)
