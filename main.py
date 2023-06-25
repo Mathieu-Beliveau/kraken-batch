@@ -11,17 +11,26 @@ PROCESSED_FILENAME = "processed"
 EXCEPTION_FILENAME = "exception"
 
 
-def process_ocr(text_path):
+def process_ocr(text_path: Path):
     pdf_path = get_pdf(text_path)
     output = Path(f"{pdf_path.parent}/{pdf_path.stem}.txt")
     try:
-        subprocess.call([f"{LOCAL_BIN}kraken", '-d', 'cuda:0', '-f', 'pdf', '-i', str(pdf_path), str(output),
+        subprocess.call([f"{LOCAL_BIN}kraken", '-d', 'cuda', '-f', 'pdf', '-i', str(pdf_path), str(output),
                          'segment', '-bl', 'ocr', '-m', 'Gallicorpora%2B_best.mlmodel'])
         with open(f"{text_path}/{PROCESSED_FILENAME}_{datetime.now()}", "w"):
             print(f"{text_path} has been processed")
+        post_process_results(output)
     except Exception:
         with open(f"{text_path}/{EXCEPTION_FILENAME}_{datetime.now()}", "w"):
             print(f"{text_path} has encountered an exception")
+
+
+def post_process_results(result: Path):
+    with open(result, 'r') as file:
+        filedata = file.read()
+    filedata = filedata.replace('¬\n', '')
+    with open(result, 'w') as file:
+        file.write(filedata)
 
 
 def is_processed(input_path: Path) -> bool:
