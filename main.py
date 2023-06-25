@@ -15,9 +15,7 @@ def process_ocr(text_path: Path):
     pdf_path = get_pdf(text_path)
     output = Path(f"{pdf_path.parent}/{pdf_path.stem}")
     try:
-        # subprocess.call([f"{LOCAL_BIN}kraken", '-d', 'cuda', '-f', 'pdf', '-i', str(pdf_path), str(output),
-        #                  'segment', '-bl', 'ocr', '-m', 'Gallicorpora%2B_best.mlmodel'])
-        subprocess.call([f"{LOCAL_BIN}kraken", '-d', 'cpu', '-f', 'pdf', '-i', str(pdf_path), str(output),
+        subprocess.call([f"{LOCAL_BIN}kraken", '-d', 'cuda', '-f', 'pdf', '-i', str(pdf_path), str(output),
                          'segment', '-bl', 'ocr', '-m', 'Gallicorpora%2B_best.mlmodel'])
         post_process_results(pdf_path.parent, pdf_path.stem)
         with open(f"{text_path}/{PROCESSED_FILENAME}_{datetime.now()}", "w"):
