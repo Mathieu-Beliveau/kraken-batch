@@ -1,10 +1,11 @@
 import concurrent.futures
 import subprocess
+from argparse import ArgumentParser
 from datetime import datetime
 from pathlib import Path
 import sys
 
-CORPUS_LOCATION = '/home/strav/Dev/corpus/'
+CORPUS_LOCATION = '/home/strav/Dev/shared-corpus/'
 LOCAL_BIN = '/home/strav/.local/bin/'
 PROCESSED_FILENAME = "processed"
 EXCEPTION_FILENAME = "exception"
@@ -44,7 +45,10 @@ def get_folders_to_process(corpus_path: Path) -> list[Path]:
 
 
 if __name__ == '__main__':
-    sys.path.insert(0, '~/.local/bin')
+    argparse = ArgumentParser()
+    argparse.add_argument("-s", "--search")
+    argparse.add_argument("-c", "--corpus", default='/home/strav/Dev/shared-corpus/')
+    args = argparse.parse_args()
     base_path = Path(CORPUS_LOCATION)
     process_dirs_for_ocr(base_path)
 
