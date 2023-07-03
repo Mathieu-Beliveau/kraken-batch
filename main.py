@@ -78,6 +78,7 @@ def recompose_folders():
             new_page_name = f"{prefix}.pdf_{str(absolute_page).zfill(6)}"
             os.rename(str(file.absolute()), f"{str(dir.parent)}/{source_dir}/{new_page_name}")
 
+
 if __name__ == '__main__':
     argparse = ArgumentParser()
     argparse.add_argument("-c", "--corpus", default='/home/strav/Dev/shared-corpus/')
