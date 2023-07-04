@@ -44,6 +44,8 @@ def is_processed(input_path: Path) -> bool:
 
 def get_pdf(input_path: Path) -> Path:
     pdf_list = list(input_path.rglob("*.pdf"))
+    matcher = r"^[^.].*\.pdf"
+    pdf_list = list(filter(lambda pdf: re.search(matcher, pdf.name) is not None, pdf_list))
     if len(pdf_list) == 1:
         return pdf_list[0]
 
