@@ -84,8 +84,8 @@ if __name__ == '__main__':
     argparse.add_argument("-c", "--corpus", default='/home/strav/Dev/shared-corpus/')
     argparse.add_argument("-r", "--recompose", default=False, type=bool)
     args = argparse.parse_args()
-    if args.recompose is True:
-        recompose_folders()
+    # if args.recompose is True:
+    #     recompose_folders()
     base_path = Path(CORPUS_LOCATION)
     process_dirs_for_ocr(base_path)
 
